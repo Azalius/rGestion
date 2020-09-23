@@ -1,0 +1,7 @@
+This is makeindex, version 2.15 [TeX Live 2013] (kpathsea + Thai support).
+Scanning style file ./build/00-Main.ist.............................done (29 attributes redefined, 0 ignored).
+Scanning input file build/00-Main.glo....done (1 entries accepted, 0 rejected).
+Sorting entries...done (0 comparisons).
+Generating output file build/00-Main.gls....done (6 lines written, 0 warnings).
+Output written in build/00-Main.gls.
+Transcript written in build/00-Main.ilg.

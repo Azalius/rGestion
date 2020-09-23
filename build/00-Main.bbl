@@ -1,0 +1,10 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname fonteauteurs\endcsname\relax
+\def\fonteauteurs{\scshape}\fi
+
+\bibitem{toto}
+\bgroup\fonteauteurs\bgroup tête\egroup\egroup{} :
+\newblock toto.
+\newblock {\em toto}, toto\string:\penalty500\relax toto, toto.
+
+\end{thebibliography}

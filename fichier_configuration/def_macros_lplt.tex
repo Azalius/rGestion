@@ -1,0 +1,249 @@
+%
+% macros definies dans "Le Petit Livre De TeX de Raymond Seroul"
+%
+
+\catcode`\@=11 	% le temps de tout definir, c'est un caractere.
+
+%
+% note de bas de page (Ch. 6 : page 85)
+% \note{texte}
+
+\newcount\notenumber \notenumber=1
+\def\note#1{\footnote{$^{\the\notenumber}$}{#1}%
+\global\advance\notenumber by 1}
+
+% 
+% centrer un titre (Index : page 238)
+% 
+
+\long\def\ctitre#1{\vbox{\leftskip=0pt plus 1fil \rightskip=0pt plus 1fil \parfillskip=0pt #1}}
+
+%
+% pour faire un sommaire
+%
+
+\def\page#1{\leaders\hbox to 5mm{\hfil.\hfil}\hfill\rlap{\hbox to 10mm{\hfill#1}}\par}
+
+% 
+% pour les tableaux (Ch. 9 : Les tableaux)
+% 
+
+% traits verticaux invisibles et visibles
+\def\tvi{\vrule height 12pt depth 5pt width 0pt}
+\def\Tvi#1{ 	\ifnum #1=0	\vrule height  4pt depth 1pt width 0pt  \fi
+	 	\ifnum #1=1	\vrule height 10pt depth 3pt width 0pt  \fi
+	   	\ifnum #1=2	\vrule height 11pt depth 4pt width 0pt  \fi
+	   	\ifnum #1=3	\vrule height 12pt depth 5pt width 0pt  \fi
+	   	\ifnum #1=4	\vrule height 13pt depth 5pt width 0pt  \fi
+	   	\ifnum #1=5	\vrule height 14pt depth 6pt width 0pt  \fi
+	   	\ifnum #1=6	\vrule height 48pt depth 20pt width 0pt  \fi
+	   }	
+\def\tv{\tvi\vrule}
+\def\Tv#1{\Tvi#1\vrule}
+
+\def\hfq{\hfill\quad}  
+\def\qhf{\quad\hfill}  
+%pour centrer avec un quadratin a dte et a gche
+\def\cc#1{\hfill\quad#1\quad\hfill}  
+%pour centrer avec un demi quadratin a dte et a gche
+\def\dd#1{\hfill\enspace#1\enspace\hfill}
+%pour centrer avec un espace a dte et a gche
+\def\ee#1{\hfill\ #1\ \hfill} 
+%pour centrer sans rien  a dte ni a gche
+\def\ff#1{\hfill #1\hfill} 
+
+%%
+%% guillemets francais
+%%
+%\def\og{\leavevmode\raise.3ex\hbox{$\scriptscriptstyle\langle\!\langle\,$}}
+%\def\osg{\leavevmode\raise.3ex\hbox{$\scriptscriptstyle\langle\,$}}
+%\def\fg{\leavevmode\raise.3ex\hbox{$\scriptscriptstyle\,\rangle\!\rangle$}}
+%\def\fsg{\leavevmode\raise.3ex\hbox{$\scriptscriptstyle\,\rangle$}}
+\def\ogui{\leavevmode\raise.3ex\hbox{$\scriptscriptstyle\langle\!\langle\,$}}
+\def\fgui{\leavevmode\raise.3ex\hbox{$\scriptscriptstyle\,\rangle\!\rangle$}}
+
+% numerotation romaine
+\def\numrom#1{\uppercase\expandafter{\romannumeral #1 }}
+
+% numerotation ancien style (utilise pour les annees, par exemple)
+\let\an=\oldstylenums
+
+% etoile en mode non mathematique
+\def\stern{$\star$}
+
+% pour les exposants et indices en mode non mathematique (chap 12 p217)
+
+\def\up#1{\raise 1ex\hbox{\rmneu #1}}
+\def\dw#1{\raise -0.5ex\hbox{\rmneu #1}}
+\def\ind#1{\dw{\rmset #1}}
+
+%
+% lettrine
+% #1 largeur indentee
+% #2 nb de lignes a indenter
+% #3 lettres a inserer
+% \lettrine{30mm}{4}{L}'homme etc
+
+\def\lettrine#1#2#3{\noindent\hangindent#1\hangafter-#2
+		    \hskip-#1\smash{\hbox to#1{#3\hfill}}\ignorespaces}
+
+
+%
+% entourer une boite #2 d'un liseret d'epaisseur #1 (qq pt) page 123
+% \boxit{qq pt}{la boite contenant le texte}
+% \boxitxy permet de specifier un ecart different en x et en y
+% \trait trace juste un trait a gauche de la boite 
+
+\def\boxit#1#2{\setbox1=\hbox{\kern#1{#2}\kern#1}%
+\dimen1=\ht1 \advance\dimen1 by #1 \dimen2=\dp1 \advance\dimen2 by #1
+\setbox1=\hbox{\vrule height\dimen1 depth\dimen2\box1\vrule}%
+\setbox1=\vbox{\hrule\box1\hrule}%
+\advance\dimen1 by .4pt \ht1=\dimen1
+\advance\dimen2 by .4pt \dp1=\dimen2 \box1\relax}
+
+\def\boxitxy#1#2#3{\setbox1=\hbox{\kern#1{#3}\kern#1}%
+\dimen1=\ht1 \advance\dimen1 by #2 \dimen2=\dp1 \advance\dimen2 by #2
+\setbox1=\hbox{\vrule height\dimen1 depth\dimen2\box1\vrule}%
+\setbox1=\vbox{\hrule\box1\hrule}%
+\advance\dimen1 by .4pt \ht1=\dimen1
+\advance\dimen2 by .4pt \dp1=\dimen2 \box1\relax}
+
+\def\trait#1#2{\setbox1=\vbox{\kern#1{#2}\kern#1}%
+\dimen1=\ht1 \advance\dimen1 by #1 \dimen2=\dp1 \advance\dimen2 by #1
+\setbox1=\hbox{\vrule height\dimen1 depth\dimen2\box1}%
+\box1\relax}
+
+%
+% pour ajouter des choses au dessus ou en dessous d'un symbole mathematique
+%
+
+\def\build#1#2^#3{\mathrel{\mathop{\kern 0pt#1}\limits_{#2}^{#3}}}
+
+%
+% systeme d'equations : page 192
+%
+
+\def\system#1{\left\{\null\,\vcenter{\openup1\jot\m@th
+\ialign{\strut\hfil$##$&$##$\hfil&&\enspace$##$\enspace&
+\hfil$##$&$##$\hfil\crcr#1\crcr}}\right.}
+
+%
+% diagram page 190 (autre version dans le ed2 p 160.)
+%
+\def\hfl#1#2{\smash{\mathop{\hbox to 12mm{\rightarrowfill}}\limits^{\scriptstyle #1}_{\scriptstyle #2}}}
+\def\hlf#1#2{\smash{\mathop{\hbox to 12mm{\leftarrowfill}}\limits^{\scriptstyle #1}_{\scriptstyle #2}}}
+\def\vfl#1#2{\llap{$\scriptstyle #1$}\left\downarrow\vbox to 6mm{}\right.\rlap{$\scriptstyle #2$}}
+\def\vlf#1#2{\llap{$\scriptstyle #1$}\left\uparrow\vbox to 6mm{}\right.\rlap{$\scriptstyle #2$}}
+\def\diagram#1{\def\normalbaselines{\baselineskip=0pt\lineskip=10pt\lineskiplimit=1pt} \matrix{#1}}
+
+%
+% Eqalign, version modifi\'ee de equalign
+%
+\def\Eqalign#1{\null\,\vcenter{\openup\jot\m@th\ialign{
+\strut\hfil$\displaystyle{##}$&$\displaystyle{{}##}$\hfil&&\quad
+\strut\hfil$\displaystyle{##}$&$\displaystyle{{}##}$\hfil\crcr#1\crcr}}\,}
+
+%
+% EEqalign. comme system, mais sans l'accolade.
+%
+\def\EEqalign#1{\left.\null\,\vcenter{\openup1\jot\m@th
+\ialign{\strut\hfil$##$&$##$\hfil&&\enspace$##$\enspace&
+\hfil$##$&$##$\hfil\crcr#1\crcr}}\right.}
+
+%
+% ecriture sur deux colonnes (TeXbook p417) 10 9bre 2
+%
+%  emploi :
+%  \begindoublecolumns
+%   texte
+%  \enddoublecolumns
+%
+% Si on veut preciser soit meme la largeur des colonnes, il faut ecrire
+% \begindoublecolumnsdim{N}, ou N est la largeur en mm que l'on desire donner a la colonne.
+%
+% Remarque : 
+%  1) il y une autre solution pour ecrire avec deux colonnes : voir le
+% TeXbook p257. cette solution permet aussi d'ecrire sur 3 colonnes
+%  2) cette macro gere les notes de bas de page, mais les met en bas en colonne unique.
+%     D. Knuth propose de faire à titre d'exercice la modification pour associer
+%     a chaque colonne ses notes de bas de page
+
+\newdimen\pagewidth \pagewidth=\hsize
+\newbox\partialpage							% cree une boite privee nommee partialpage qui va
+									% servir a faire tout le montage
+\def\begindoublecolumns{\begingroup
+  \output={\global\setbox\partialpage=\vbox{\unvbox255\bigskip}}\eject	% il met toute la page (box255) dans sa 
+  \output={\doublecolumnout} \hsize=19truepc \vsize=89truepc}		%  boite privee, avec possibilite de la
+				                                    	%  couper en morceaux (\unvbox)
+
+\def\begindoublecolumnsdim#1{\begingroup
+  \output={\global\setbox\partialpage=\vbox{\unvbox255\bigskip}}\eject	% il met toute la page (box255) dans sa 
+  \output={\doublecolumnout} \hsize=#1mm \vsize=true89pc}		%  boite privee, avec possibilite de la
+				                                    	%  couper en morceaux (\unvbox)
+
+\def\enddoublecolumns{\output={\balancecolumns}\eject
+  \endgroup \pagegoal=\vsize}
+
+\def\doublecolumnout{\splittopskip=\topskip \splitmaxdepth\maxdepth
+  \dimen@=44pc \advance\dimen@ by-\ht\partialpage
+  \setbox0=\vsplit255 to\dimen@ \setbox2=\vsplit255 to\dimen@
+  \onepageout\pagesofar \unvbox255 \penalty\outputpenalty}
+\def\pagesofar{\unvbox\partialpage
+  \wd0=\hsize \wd2=\hsize \hbox to\pagewidth{\box0\hfil\box2}}
+\def\balancecolumns{\setbox0=\vbox{\unvbox255} \dimen@=\ht0
+  \advance\dimen@ by\topskip \advance\dimen@ by-\baselineskip
+  \divide\dimen@ by2 \splittopskip=\topskip
+  {\vbadness=10000 \loop \global\setbox3=\copy0
+    \global\setbox1=\vsplit3 to \dimen@
+    \ifdim\ht3>\dimen@ \global\advance\dimen@ by1pt \repeat}
+  \setbox0=\vbox to\dimen@{\unvbox1} \setbox2=\vbox to\dimen@{\unvbox3}
+  \pagesofar}
+
+
+
+%
+%	ecriture 2 pages par page
+%       page 241 lpdt, nouvelle edition
+%
+\newbox\leftpage \newbox\rightpage \newbox\feuille
+\newdimen\separateur \separateur=30mm
+
+\def\makefeuille{\setbox\feuille=\hbox{%
+                    \hbox to \hsize{\box\leftpage\hss}%
+                     \hskip\separateur
+                      \hbox to \hsize{\box\rightpage\hss}}}
+\def\currentpage{\vtop{\makeheadline\pagebody\makefootline}
+                  \advancepageno } 
+
+\def\twopages
+    {\ifodd \pageno
+      \global\setbox\rightpage=\currentpage
+       \makefeuille
+        \shipout\box\feuille
+         \else \global\setbox\leftpage=\currentpage \fi
+          \ifnum\outputpenalty>-20000 \else\dosupereject\fi }
+\def\epreuves{\output={\twopages}}
+
+%
+%	ecriture 2 pages identiques par page
+%       d'apres page 241 lpdt, nouvelle edition
+%
+\newbox\leftpage \newbox\rightpage \newbox\feuille
+\newdimen\separateur \separateur=35.0mm
+
+\def\makefeuille{\setbox\feuille=\hbox{%
+                    \hbox to \hsize{\box\leftpage\hss}%
+                     \hskip\separateur
+                      \hbox to \hsize{\box\rightpage\hss}}}
+\def\currentpage{\setbox150=\vtop{\makeheadline\pagebody\makefootline}
+                  \advancepageno } 
+\def\twopages
+      {\currentpage
+      \global\setbox\rightpage=\copy150
+      \global\setbox\leftpage=\box150
+      \makefeuille
+      \shipout\box\feuille
+      \ifnum\outputpenalty>-20000 \else\dosupereject\fi }
+\def\epreuvesacinq{\output={\twopages}}
+
+\catcode`\@=12

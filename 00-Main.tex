@@ -1,0 +1,134 @@
+\documentclass[french,11pt,a4paper,twoside,openright]{report}
+% openright chap sur page de droite
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage[english,frenchb]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage[font={normalsize},labelfont={normalsize},figurename=Figure,tablename=Tableau,center]{caption}
+\usepackage[lofdepth,lotdepth]{subfig}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\setlength\heavyrulewidth{1.0pt}
+\usepackage{epigraph}
+\usepackage{placeins}
+\usepackage{floatrow}
+\floatsetup[table]{capposition=top}
+\usepackage[linkcolor=blue]{hyperref} 
+\hypersetup{                    % parametrage des hyperliens
+    colorlinks=true,                % colorise les liens
+    breaklinks=true,                % permet les retours à la ligne pour les liens trop longs
+    urlcolor= blue,                 % couleur des hyperliens
+    linkcolor= black,                % couleur des liens internes aux documents (index, figures, tableaux, equations,...)
+    citecolor= red                % couleur des liens vers les references bibliographiques
+    }
+\usepackage[frenchb]{minitoc}		% Mini table des matières, en français
+\setcounter{minitocdepth}{2}	% Mini-toc détaillées (sections/sous-sections)
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+%\usepackage[pdftex]{graphicx}
+
+% police demandee par le CEA, a decommenter pour utiliser
+
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Tracé de figures vectorielles
+\usepackage{tikz}
+\usepackage{pgfkeys}
+\usepackage{pgfplots}
+% Formules chimiques
+\usepackage{chemfig}
+\usepackage{mhchem}
+% Gestion des unites
+\usepackage{eurosym}
+\usepackage{siunitx} % écriture des unités
+\sisetup{detect-all} % permet de mettre en gras les unités avec txbf
+\sisetup{locale=FR} % permet de reconnaître les règles syntaxiques françaises
+\sisetup{inter-unit-product=\ensuremath{\cdot}} % permet de changer le formalisme du multiplier
+
+\usepackage{import}
+
+\newcommand{\citationChap}[2]{                    % commande pour les citations
+	\epigraph{\og \textit{#1} \fg{}}{#2}
+}
+
+% Definition de la couleur verte pour la première page
+\usepackage{colortbl}
+\definecolor{darkgreen}{cmyk}{0.7,0,0.7,0.5}
+\definecolor{darkred}{rgb}{0.8,0,0}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\newcommand\ytl[3]{
+\parbox[b]{8em}{\hfill{\color{#3}\bfseries\sffamily #1}~$\cdots\cdots$~}\makebox[0pt][c]{$\bullet$}\vrule\quad \parbox[c]{4.5cm}{\vspace{7pt}\color{red!40!black!80}\raggedright\sffamily #2.\\[7pt]}\\[-3pt]
+}
+
+
+
+
+% Macros utiles dans ce document
+
+\input{fichier_configuration/def_abreges}			% macros specifiques a ce document
+\input{fichier_configuration/def_alphabetgrec}		% macros specifiques a ce document
+\input{fichier_configuration/def_figures}  		% macros specifiques a ce document
+\input{fichier_configuration/def_macros_lplt}		% macros specifiques a ce document
+\input{fichier_configuration/def_mathematiques}	% macros specifiques a ce document
+\input{00-Config} % fichier de configuration du rapport (auteur, date, titre...)
+
+
+%glossaire
+
+\usepackage[acronyms,style=listgroup]{glossaries}
+\makeglossaries
+\loadglsentries{10-Glossaire}
+
+
+
+
+\begin{document}
+\dominitoc
+\pagenumbering{roman}
+\input{fichier_configuration/tex_une-1}
+\newpage
+\input{fichier_configuration/tex_une-2}	% page de garde + verso blanc
+
+		% Entête et pieds de page
+	\pagestyle{fancy}% Indique que le style de la page sera justement fancy
+	\renewcommand{\chaptermark}[1]{%
+	\markboth{\MakeUppercase{\thechapter. #1}}{}}	
+	\renewcommand{\footrulewidth}{0pt}	
+	\renewcommand{\headrulewidth}{0.3pt}	
+	\fancyfoot[L]{} %gauche du pied de page
+	\fancyfoot[R]{} %m ilieu du pied de page
+	\fancyfoot[C]{\thepage} %droite du pied de page
+	\fancyhead[LO,RE]{\includegraphics[scale=0.04]{fichier_configuration/logo-cea.png}}
+	\fancyhead[RO,LE] {\leftmark}
+
+\pagestyle{empty}
+
+\input{01_tex_remerciements}	    % 
+
+
+
+
+\tableofcontents	% table des matieres
+\addstarredchapter{Sommaire}
+\pagenumbering{arabic}
+
+\input{03_tex_introduction}		% introduction
+
+\pagestyle{fancy}
+
+%\input{fichier_configuration/presentation_generale_CEA}
+
+\input{08_contenu}
+
+\input{05_tex_conclusion}		% conclusion
+
+
+\end{document}

@@ -1,0 +1,398 @@
+%
+% macros d'insertions de figures
+%
+
+%
+% macro de numerotation	des figures
+%
+
+%% definition du compteur de figures			
+%\newcount\numfig \numfig=0								% avec_numerotation
+%\def\fig{\global\advance\numfig by 1{\bfuit figure~\the\numfig :} \rmuit}		% avec_numerotation
+%%\def\fig{fig }										% sans_numerotation
+% 
+%% macros de referencage des figures			
+%
+%% referencage manuel					
+%%\def\fignum#1{(fig~#1)}								% sans_numerotation
+%
+%% referencage automatique								% avec_numerotation
+%% (attention a ne pas introduire de blancs parasites)					% avec_numerotation
+%% Une figure en haut/en bas								% avec_numerotation
+%\def\figh{                     (fig \the\numfig)}				% avec_numerotation
+%\def\figb{\advance\numfig by 1	(fig~\the\numfig)\advance\numfig by -1}	% avec_numerotation
+%% Deux fig en haut/bas et on veut celle de gauche/droite				% avec_numerotation
+%\def\dfighg{\advance\numfig by -1(fig~\the\numfig)\advance\numfig by 1}	% avec_numerotation
+%\def\dfighd{                     (fig~\the\numfig)}			% avec_numerotation
+%\def\dfigbg{\advance\numfig by 1 (fig~\the\numfig)\advance\numfig by -1}	% avec_numerotation
+%\def\dfigbd{\advance\numfig by 2 (fig~\the\numfig)\advance\numfig by -2}	% avec_numerotation
+%% Deux fig en haut/bas et on veut les deux						% avec_numerotation
+%\def\dfigb{\advance\numfig by 1(fig~\the\numfig%				% avec_numerotation
+%  \advance\numfig by 1\&~\the\numfig)\advance\numfig by -2}		% avec_numerotation
+%\def\dfigh{\advance\numfig by -1(fig~\the\numfig%				% avec_numerotation
+%  \advance\numfig by 1\&~\the\numfig)}					% avec_numerotation
+%% Trois fig en haut/bas  et on veut celle de gauche/milieu/droite			% avec_numerotation
+%\def\tfighg{\advance\numfig by -2(fig~\the\numfig)\advance\numfig by 2}	% avec_numerotation
+%\def\tfighm{\advance\numfig by -1(fig~\the\numfig)\advance\numfig by 1}	% avec_numerotation
+%\def\tfighd{                     (fig~\the\numfig)}			% avec_numerotation
+%\def\tfigbg{\advance\numfig by 1 (fig~\the\numfig)\advance\numfig by -1}	% avec_numerotation
+%\def\tfigbm{\advance\numfig by 2 (fig~\the\numfig)\advance\numfig by -2}	% avec_numerotation
+%\def\tfigbd{\advance\numfig by 3 (fig~\the\numfig)\advance\numfig by -3}	% avec_numerotation
+%% Trois fig en haut/bas  et on veut les trois						% avec_numerotation
+%\def\tfigb{\advance\numfig by 1(fig~\the\numfig,%				% avec_numerotation
+%  \advance\numfig by 1~\the\numfig~\&% 					% avec_numerotation
+%  \advance\numfig by 1~\the\numfig)\advance\numfig by -3}			% avec_numerotation
+%\def\tfigh{\advance\numfig by -2(fig~\the\numfig,%			% avec_numerotation
+%  \advance\numfig by 1~\the\numfig~\&%					% avec_numerotation
+%  \advance\numfig by 1~\the\numfig)}					% avec_numerotation
+
+\def\figp#1{(figure~\ref{#1})}
+\def\fig#1{figure~\ref{#1}}
+
+%-----------------------------------------------------------
+%-----------------------------------------------------------
+%-----------------------------------------------------------
+
+%
+% procedures pour inclure des fichiers postscript encapsules 
+%     (les unites sont a preciser avec les dimensions)
+%
+
+\def\sfigx#1#2{\hbox{\epsfxsize=#1\epsffile{#2.eps}}}
+\def\sfigy#1#2{\hbox{\epsfysize=#1\epsffile{#2.eps}}}
+\def\sfigxy#1#2#3{\hbox{\epsfxsize=#1\epsfysize=#2\epsffile{#3.eps}}}
+
+
+
+%-----------------------------------------------------------
+%
+% figx : insertion d'un fichier redimensionne en x
+%
+% #1 = dimension suivant x du dessin
+% #2 = nom du fichier a inserer sans l'extension ".eps"
+% #3 = legende
+% #4 = position de la legende
+% #5 = decalage vertical avant
+% #6 = decalage vertical apres
+%
+
+\def\figx#1#2#3#4#5#6#7{
+%  \vskip#4  	 			% decalage
+%  \vbox{                             	% ouverture d'une boite V
+%    {\ \hfill\sfigx{#1}{#2}\hfill}	% centrage de la figure
+%    \vskip#5   	 			% decalage
+%    \centerline{\fig #3}             	% centrage d'une legende	
+%  }                             	% fermeture d'une boite V
+%  \vskip#6				% decalage
+ \begin{figure}
+  \begin{center}
+   \includegraphics[width=#1]{#2.eps}
+  \end{center}
+  \caption{#3}
+  \label{#7}
+ \end{figure}
+}        		                         
+
+%-----------------------------------------------------------
+%
+% figxy : insertion d'un fichier redimensionne en x et y
+%
+% #1 = dimension suivant x du dessin
+% #2 = dimension suivant y du dessin
+% #3 = nom du fichier a inserer sans l'extension ".eps"
+% #4 = legende
+% #5 = position de la legende
+% #6 = decalage vertical avant
+% #7 = decalage vertical apres
+%
+
+\def\figxy#1#2#3#4#5#6#7{
+  \vskip#5  	 			% decalage
+  \vbox{                             	% ouverture d'une boite V
+    {\ \hfill\sfigxy{#1}{#2}{#3}\hfill}       % centrage de la figure
+    \vskip#6   	 			% decalage
+%    \centerline{\fig #4}             	% centrage d'une legende	
+  }                             	% fermeture d'une boite V
+  \vskip#7				% decalage
+}        		                        
+
+%-----------------------------------------------------------
+%
+% dfigx : insertion de deux figures de meme taille en x 
+%         (les unites sont a preciser aves les dimensions)
+%
+% #1 = dimension suivant x des deux figures      
+% #2 = nom du fichier de gauche sans l'extension ".eps"
+% #3 = nom du fichier de droite sans l'extension ".eps"
+% #4 = legende de gauche 
+% #5 = legende de droite 
+% #6 = position verticale des legendes
+% #7 = decalage vertical avant
+% #8 = decalage vertical apres
+%
+
+\newdimen\largeur 							
+
+\def\dfigx#1#2#3#4#5#6#7#8{
+  \largeur=\textwidth \divide\largeur by2 \advance\largeur by-1truept 	
+  \setbox101=\sfigx{#1}{#2}
+  \setbox102=\sfigx{#1}{#3}
+%  \setbox104=\hbox to \largeur{\hfill\hbox{\fig #4}\hfill}	
+%  \setbox105=\hbox to \largeur{\hfill\hbox{\fig #5}\hfill}	
+  \vbox{
+    \vskip #7
+    \hbox to \textwidth{\hfill\box101\hfill\box102\hfill}
+    \vskip #6
+%    \hbox to \textwidth{\hfill\box104\hfill\box105\hfill}
+    \vskip #8
+    }
+}
+
+%-----------------------------------------------------------
+%
+% dfigxiso : insertion de deux figures en ligne de dimensions differentes
+%            chacune centree dans sa moitie de la page
+%         (les unites sont a preciser aves les dimensions)
+%
+% #1 = dimension suivant x de la figure de gauche
+% #2 = dimension suivant x de la figure de droite   
+% #3 = nom du fichier de gauche sans l'extension ".eps"
+% #4 = nom du fichier de droite sans l'extension ".eps"
+% #5 = legende de gauche 
+% #6 = legende de droite 
+% #7 = position verticale des legendes
+% #8 = decalage vertical avant
+% #9 = decalage vertical apres
+%
+\def\dfigxiso#1#2#3#4#5#6#7#8#9{
+  \largeur=\textwidth \divide\largeur by2 \advance\largeur by-1truept 	
+  \setbox101=\sfigx{#1}{#3}
+  \setbox102=\sfigx{#2}{#4}
+  \setbox101=\hbox to \largeur{\hfill\box101\hfill}
+  \setbox102=\hbox to \largeur{\hfill\box102\hfill}
+%  \setbox104=\hbox to \largeur{\hfill\hbox{\fig #5}\hfill}	
+%  \setbox105=\hbox to \largeur{\hfill\hbox{\fig #6}\hfill}	
+  \vbox{
+    \vskip #8
+    \hbox to \textwidth{\hfill\box101\hfill\box102\hfill}
+    \vskip #7
+    \hbox to \textwidth{\hfill\box104\hfill\box105\hfill}
+    \vskip #9
+    }
+}
+
+%-----------------------------------------------------------
+%
+% dfigxdif : insertion de deux figures en ligne de dimensions differentes
+%            avec les blancs repartis egalement entre les figures
+%         (les unites sont a preciser aves les dimensions)
+%
+% #1 = dimension suivant x de la figure de gauche
+% #2 = dimension suivant x de la figure de droite   
+% #3 = nom du fichier de gauche sans l'extension ".eps"
+% #4 = nom du fichier de droite sans l'extension ".eps"
+% #5 = legende de gauche 
+% #6 = legende de droite 
+% #7 = position verticale des legendes
+% #8 = decalage vertical avant
+% #9 = decalage vertical apres
+%
+
+\def\dfigxdif#1#2#3#4#5#6#7#8#9{
+  \setbox101=\sfigx{#1}{#3}
+  \setbox102=\sfigx{#2}{#4}
+%  \setbox104=\hbox to #1{\hfill\hbox{\fig #5}\hfill}	
+%  \setbox105=\hbox to #2{\hfill\hbox{\fig #6}\hfill}	
+  \vbox{
+    \vskip #8
+    \hbox to \textwidth{\hfill\box101\hfill\box102\hfill}
+    \vskip #7
+%    \hbox to \textwidth{\hfill\box104\hfill\box105\hfill}
+    \vskip #9
+    }
+}
+
+%-----------------------------------------------------------
+%
+% tfigx : insertion de trois figures de meme dimension 
+%         (les unites sont a preciser aves les dimensions)
+%
+% #1 = dimension suivant x de la figure de gauche
+% #2 = nom du fichier de gauche sans l'extension ".eps"
+% #3 = nom du fichier du centre sans l'extension ".eps"
+% #4 = nom du fichier de droite sans l'extension ".eps"
+% #5 = legendes de l'image de gauche
+% #6 = legendes de l'image du milieu
+% #7 = legendes de l'image de droite
+% #8 = decalage vertical avant
+% #9 = decalage vertical apres
+%
+
+\def\tfigx#1#2#3#4#5#6#7#8#9{
+  \largeur=\textwidth \divide\largeur by3 \advance\largeur by-1truept 	
+  \setbox101=\sfigx{#1}{#2}
+  \setbox102=\sfigx{#1}{#3}
+  \setbox103=\sfigx{#1}{#4}
+  \setbox101=\hbox to \largeur{\hfill\box101\hfill}
+  \setbox102=\hbox to \largeur{\hfill\box102\hfill}
+  \setbox103=\hbox to \largeur{\hfill\box103\hfill}
+%  \setbox104=\hbox to \largeur{\hfill\hbox{\fig #5}\hfill}	
+%  \setbox105=\hbox to \largeur{\hfill\hbox{\fig #6}\hfill}	
+%  \setbox106=\hbox to \largeur{\hfill\hbox{\fig #7}\hfill}	
+  \vbox{
+    \vskip #8
+     \hbox to \textwidth{\hfill\box101\hfill\box102\hfill\box103\hfill}
+     \vskip 2mm
+%     \hbox to \textwidth{\hfill\box104\hfill\box105\hfill\box106\hfill}
+     \vskip #9
+    }
+}
+
+%-----------------------------------------------------------
+%
+% tfigxiso : insertion de trois figures en ligne de dimension et de legendes differentes 
+%            chacune centree dans sa moitie de la page
+%         (les unites sont a preciser aves les dimensions)
+%
+% #1 = dimension suivant x de la figure de gauche
+% #2 = dimension suivant x de la figure du milieu
+% #3 = dimension suivant x de la figure de droite
+% #4 = nom du fichier de gauche sans l'extension ".eps"
+% #5 = nom du fichier du centre sans l'extension ".eps"
+% #6 = nom du fichier de droite sans l'extension ".eps"
+% #7 = legendes de l'image de gauche 
+% #8 = legendes de l'image du milieu
+% #9 = legendes de l'image de droite
+%
+
+\def\tfigxiso#1#2#3#4#5#6#7#8#9{
+  \largeur=\textwidth \divide\largeur by3 \advance\largeur by-1truept 	
+  \setbox101=\sfigx{#1}{#4}
+  \setbox102=\sfigx{#2}{#5}
+  \setbox103=\sfigx{#3}{#6}
+  \setbox101=\hbox to \largeur{\hfill\box101\hfill}
+  \setbox102=\hbox to \largeur{\hfill\box102\hfill}
+  \setbox103=\hbox to \largeur{\hfill\box103\hfill}
+%  \setbox104=\hbox to \largeur{\hfill\hbox{\fig #7}\hfill}	
+%  \setbox105=\hbox to \largeur{\hfill\hbox{\fig #8}\hfill}	
+%  \setbox106=\hbox to \largeur{\hfill\hbox{\fig #9}\hfill}	
+  \vbox{
+    \vskip 2mm
+     \hbox to \textwidth{\hfill\box101\hfill\box102\hfill\box103\hfill}
+     \vskip 2mm
+%     \hbox to \textwidth{\hfill\box104\hfill\box105\hfill\box106\hfill}
+     \vskip 0mm
+    }
+}
+
+%-----------------------------------------------------------
+%
+% tfigxiso : insertion de trois figures en ligne de dimension et de legendes differentes 
+%            avec les blancs repartis egalement entre les figures
+%         (les unites sont a preciser aves les dimensions)
+%
+% #1 = dimension suivant x de la figure de gauche
+% #2 = dimension suivant x de la figure du milieu
+% #3 = dimension suivant x de la figure de droite
+% #4 = nom du fichier de gauche sans l'extension ".eps"
+% #5 = nom du fichier du centre sans l'extension ".eps"
+% #6 = nom du fichier de droite sans l'extension ".eps"
+% #7 = legendes de l'image de gauche 
+% #8 = legendes de l'image du milieu
+% #9 = legendes de l'image de droite
+%
+
+\def\tfigxdif#1#2#3#4#5#6#7#8#9{
+  \setbox101=\sfigx{#1}{#4}
+  \setbox102=\sfigx{#2}{#5}
+  \setbox103=\sfigx{#3}{#6}
+  \setbox104=\hbox to #1{\hfill\hbox{\fig #7}\hfill}	
+  \setbox105=\hbox to #2{\hfill\hbox{\fig #8}\hfill}	
+  \setbox106=\hbox to #3{\hfill\hbox{\fig #9}\hfill}	
+  \vbox{
+    \vskip 2mm
+     \hbox to \textwidth{\hfill\box101\hfill\box102\hfill\box103\hfill}
+     \vskip 2mm
+     \hbox to \textwidth{\hfill\box104\hfill\box105\hfill\box106\hfill}
+     \vskip 2mm
+    }
+}
+
+
+%-----------------------------------------------------------
+%-----------------------------------------------------------
+%-----------------------------------------------------------
+
+%
+% macros d'insertion de tableaux
+%
+
+
+ % definition du compteur de tableaux			% avec_numerotation
+%\newcount\numtab \numtab=0				% avec_numerotation
+%
+%% % macro de numerotation					% numerotation
+%%\def\tabn#1{tab~#1 :}						% sans_numerotation
+%\def\tabn{\global\advance\numtab by 1 				% avec_numerotation
+%%	\rmuit							% avec_numerotation
+%	TABLEAU~\the\numtab : }			% avec_numerotation
+% 
+%% % macros de referencage des tableaux				% numerotation
+%
+%% % referencage manuel						% sans_numerotation
+%%\def\tac#1{(tac~#1)}						% sans_numerotation
+%
+% % referencage automatique					% avec_numerotation
+% % le tableau est en haut					% avec_numerotation
+%\def\tabh{tableau~\the\numtab}			% avec_numerotation
+% % le tableau est deux tableaux avant				% avec_numerotation
+%\def\tabhh{{\advance\numtab by -1%				% avec_numerotation
+%tableau~\the\numtab}}		% avec_numerotation
+% % le tableau est en bas					% avec_numerotation
+%\def\tabb{{\advance\numtab by 1%				% avec_numerotation
+%tableau~\the\numtab}}		% avec_numerotation
+% % le tableau est deux tableaux en bas				% avec_numerotation
+%\def\tabbb{{\advance\numtab by 2%				% avec_numerotation
+%tableau~\the\numtab}}		% avec_numerotation
+
+\def\tabp#1{(tableau~\ref{#1})}
+\def\tab#1{tableau~\ref{#1}}
+
+%-----------------------------------------------------------
+
+%
+% insertion de tableau
+% les unites sont a preciser avec les dimensions
+% 
+% #1 le titre
+% #2 le tableau
+% #3 commentaire eventuel
+% #4 ecart entre le titre et le tableau
+% #5 ecart entre le tableau et le commentaire
+% #6 ecart avant le tableau 
+% #7 ecart apres le tableau
+%
+
+\def\tableau#1#2#3#4#5#6#7#8{
+   \begin{table}
+ 	\vbox{
+%		\setbox100=\ctitre{#1}		% sans_numerotation
+%		\setbox100=\ctitre{\caption{#1}\label{#8}}	% avec_numerotation
+		\setbox101=\vbox{#2}
+		\setbox102=\ctitre{#3}
+
+		\vskip #6 
+%		\centerline{\box100}
+                \caption{#1}\label{#8}
+		\vglue #4 plus 2pt minus 2pt 
+		\centerline{\box101}
+		\vglue #5 plus 2pt minus 2pt 
+		\centerline{\box102}
+		\vskip #7
+	}
+   \end{table}
+}
+
+
+
+
